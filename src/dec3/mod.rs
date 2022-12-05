@@ -105,64 +105,6 @@ fn common_priorities_throuple(a: Vec<char>, b: Vec<char>, c: Vec<char>) -> Vec<c
         .collect()
 }
 
-// impl ElfSquadron {
-//     // The name is just too good to leave
-//     fn parse_sacks(input: std::str::Lines<'_>) -> Vec<Rucksack> {
-//         return input
-//             .enumerate()
-//             .map(|s| ElfSquadron::parse_sack_contents(&s.to_string()))
-//             .collect();
-//     }
-
-//     fn new() -> ElfSquadron {
-//         ElfSquadron {
-//             first: vec![],
-//             second: vec![],
-//             third: vec![],
-//         }
-//     }
-// }
-
-// fn load_squadron(i: usize, &mut elf_squadd: RucksackThrouple) -> Option<RucksackThrouple> {
-//     match i % 3 {
-//         0 => {
-//             if elf_squadd.first.len() > 0 {
-//                 elf_squadd.push(elf_squadd);
-//             }
-
-//             elf_squadd = RucksackThrouple::new();
-//             elf_squadd.first = i.chars().collect();
-//         }
-//         1 => elf_squadd.second = e.chars().collect(),
-//         2 => elf_squadd.third = e.chars().collect(),
-//         n => eprintln!("impossible int returned from i % 3 here: {}", n),
-//     }
-// }
-
-// fn parse_squadrons(input: std::str::Lines<'_>) -> Vec<RucksackThrouple> {
-//     let mut all_squads: Vec<RucksackThrouple>;
-//     let mut elf_squadd = RucksackThrouple::new();
-
-//     input
-//         .enumerate()
-//         .map(|(i, e)| match i % 3 {
-//             0 => {
-//                 if elf_squadd.first.len() > 0 {
-//                     all_squads.push(elf_squadd);
-//                 }
-
-//                 elf_squadd = RucksackThrouple::new();
-//                 elf_squadd.first_sack = e.chars().collect();
-//             }
-//             1 => elf_squadd.second_sack = e.chars().collect(),
-//             2 => elf_squadd.third_sack = e.chars().collect(),
-//             n => eprintln!("impossible int returned from i % 3 here: {}", n),
-//         })
-//         .collect();
-
-//     all_squads
-// }
-
 fn common_priority(first: &Vec<char>, second: &Vec<char>) -> i32 {
     let mut vec: Vec<char> = first
         .into_iter()
@@ -211,11 +153,17 @@ fn total_priorities(sacks: &Vec<Rucksack>) -> i32 {
         .sum()
 }
 
-fn main() {
-    // let fname = "backpack-vals.txt";
-    // let text = fs::read_to_string(fname.to_string()).expect("failed to read to string");
-    // let sacks = Rucksack::parse_sacks(text.lines().into_iter());
+pub fn _part_one() {
+    let fname = "backpack-vals.txt";
+    let text = fs::read_to_string(fname.to_string()).expect("failed to read to string");
+    let sacks = Rucksack::parse_sacks(text.lines().into_iter());
 
+    let priority_sum = total_priorities(&sacks);
+
+    println!("total: {}", priority_sum)
+}
+
+pub fn part_two() {
     let fname = "squad-vals.txt";
     let text = fs::read_to_string(fname.to_string()).expect("failed to read to string");
     let sack_throuples = RucksackThrouple::parse(text.lines().into_iter());

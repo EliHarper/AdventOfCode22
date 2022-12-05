@@ -1,7 +1,49 @@
 use std::fs;
 use std::time::Instant;
 
-fn main() {
+fn calculate_largest_x(text: String, x: usize) -> Vec<i64> {
+    let mut largest_few = vec![0; x];
+    let mut running_total = 0;
+
+    for line in text.lines() {
+        let line = line.trim();
+        if !line.is_empty() {
+            running_total += line.parse::<i64>().unwrap();
+            continue;
+        }
+
+        if running_total > largest_few[0] {
+            largest_few[0] = running_total;
+            largest_few.sort();
+        }
+
+        running_total = 0;
+    }
+
+    largest_few.sort();
+    largest_few
+}
+
+fn sort_all(text: String) -> Box<Vec<i64>> {
+    let mut totals = Vec::new();
+    let mut running_total = 0;
+    for line in text.lines() {
+        let line = line.trim();
+        if !line.is_empty() {
+            running_total += line.parse::<i64>().unwrap();
+            continue;
+        }
+
+        totals.push(running_total);
+        running_total = 0;
+    }
+
+    totals.sort();
+
+    return Box::new(totals);
+}
+
+fn part_two() {
     let start = Instant::now();
 
     let text =
@@ -24,46 +66,4 @@ fn main() {
     );
 
     println!("This took {:?} microseconds", start.elapsed().as_micros());
-}
-
-/* fn calculate_largest_x(text: String, x: usize) -> Vec<i64> {
-    let mut largest_few = vec![0; x];
-    let mut running_total = 0;
-
-    for line in text.lines() {
-        let line = line.trim();
-        if !line.is_empty() {
-            running_total += line.parse::<i64>().unwrap();
-            continue;
-        }
-
-        if running_total > largest_few[0] {
-            largest_few[0] = running_total;
-            largest_few.sort();
-        }
-
-        running_total = 0;
-    }
-
-    largest_few.sort();
-    largest_few
-} */
-
-fn sort_all(text: String) -> Box<Vec<i64>> {
-    let mut totals = Vec::new();
-    let mut running_total = 0;
-    for line in text.lines() {
-        let line = line.trim();
-        if !line.is_empty() {
-            running_total += line.parse::<i64>().unwrap();
-            continue;
-        }
-
-        totals.push(running_total);
-        running_total = 0;
-    }
-
-    totals.sort();
-
-    return Box::new(totals);
 }
