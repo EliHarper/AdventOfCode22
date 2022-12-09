@@ -104,24 +104,24 @@ mod tests {
         assert_eq!(cs.get(&6).unwrap().to_owned(), vec!['Q', 'B']);
     }
 
-    #[test]
-    fn test_init_all_stack_lines() {
-        let mut cs = CrateStacks::new();
-        let all_stacks = r#"        [J]         [B]     [T]    
-        [M] [L]     [Q] [L] [R]    
-        [G] [Q]     [W] [S] [B] [L]
-[D]     [D] [T]     [M] [G] [V] [P]
-[T]     [N] [N] [N] [D] [J] [G] [N]
-[W] [H] [H] [S] [C] [N] [R] [W] [D]
-[N] [P] [P] [W] [H] [H] [B] [N] [G]
-[L] [C] [W] [C] [P] [T] [M] [Z] [W]
-"#;
+    // #[test]
+    //     fn test_init_all_stack_lines() {
+    //         let mut cs = CrateStacks::new();
+    //         let all_stacks = r#"        [J]         [B]     [T]
+    //         [M] [L]     [Q] [L] [R]
+    //         [G] [Q]     [W] [S] [B] [L]
+    // [D]     [D] [T]     [M] [G] [V] [P]
+    // [T]     [N] [N] [N] [D] [J] [G] [N]
+    // [W] [H] [H] [S] [C] [N] [R] [W] [D]
+    // [N] [P] [P] [W] [H] [H] [B] [N] [G]
+    // [L] [C] [W] [C] [P] [T] [M] [Z] [W]
+    // "#;
 
-        for line in all_stacks.lines() {
-            init_stack_line(line.to_string(), &mut cs)
-        }
+    //         for line in all_stacks.lines() {
+    //             init_stack_line(line.to_string(), &mut cs)
+    //         }
 
-        println!("{:?}", cs);
-        assert_eq!(cs.get(&2).unwrap().to_owned(), vec!['C', 'P', 'H']);
-    }
+    //         println!("{:?}", cs);
+    //         assert_eq!(cs.get(&2).unwrap().to_owned(), vec!['C', 'P', 'H']);
+    //     }
 }
