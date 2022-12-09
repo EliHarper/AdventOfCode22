@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, fs};
+use std::fs;
 
 type Signal = Vec<char>;
 
@@ -22,11 +22,7 @@ impl ISig for Signal {
             return None;
         }
 
-        for current in offset..self.len() {
-            if current < offset + 1 {
-                continue;
-            }
-
+        for current in offset + 1..self.len() {
             // Create a copy of each index and the preceding chars that may be a marker
             let mut marker_candidate = self[current - required_distinct..current].to_owned();
             marker_candidate.sort();
@@ -35,7 +31,7 @@ impl ISig for Signal {
             marker_candidate.dedup();
 
             // If the lengths are the same, all identified characters are unique
-            if self[current - required_distinct..=current].len() == marker_candidate.len() {
+            if required_distinct == marker_candidate.len() {
                 return Some(current as i32);
             }
         }
@@ -71,6 +67,15 @@ pub fn part_two() {
 #[cfg(test)]
 mod tests {
     use super::{ISig, Signal};
+
+    #[test]
+    fn test_packet_start_marker() {
+        let msg = "mjqjpqmgbljsphdztnvjfqwrcgsmlb".to_string();
+        let sig = Signal::parse(msg) as Signal;
+        let begin = sig.marker_pos(4).unwrap();
+
+        assert_eq!(begin, 7);
+    }
 
     #[test]
     fn test_message_start_marker() {
