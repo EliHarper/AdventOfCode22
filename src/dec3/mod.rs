@@ -55,11 +55,9 @@ impl RucksackThrouple {
     /* Methods on Top */
     fn parse(input: std::str::Lines<'_>) -> Vec<RucksackThrouple> {
         let mut all_grouped: Vec<RucksackThrouple> = Vec::new();
-        let mut all: Vec<Rucksack> = Vec::new();
-
         let mut three_rucks: Vec<Rucksack> = Vec::new();
 
-        all = Rucksack::parse_sacks(input);
+        let all = Rucksack::parse_sacks(input);
         for chunk in all.chunks(3) {
             three_rucks = chunk.into_iter().map(|r| r.to_owned()).collect::<Vec<_>>();
             all_grouped.push(RucksackThrouple::from_vec(three_rucks))
